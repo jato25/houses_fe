@@ -3,20 +3,38 @@
     <div class="container_signUp_user">
       <h2>Registrarse</h2>
 
-      <form v-on:submit.prevent="processSignUp">
-        <input type="text" v-model="user.username" placeholder="Username" />
+      <form v-on:submit.prevent="processNewInmueble">
+        <input
+          type="number"
+          v-model="inmueble.area"
+          placeholder="Area en m&sup2"  
+        />
         <br />
 
-        <input type="password" v-model="user.password" placeholder="Password" />
+        <input
+          type="number"
+          v-model="inmueble.precio"
+          placeholder="Precio en COP"
+        />
         <br />
 
-        <input type="text" v-model="user.name" placeholder="Name" />
+        <select v-model="inmueble.categoria">
+          <option value="" disabled selected hidden>Tipo de inmueble</option>
+          <option value="Casa">Casa</option>
+          <option value="Apto">Apto</option>
+          <option value="Bodega">Bodega</option>
+
+        </select>
         <br />
 
-        <input type="email" v-model="user.email" placeholder="Email" />
+        <input
+          type="text"
+          v-model="inmueble.descripcion"
+          placeholder="Descripción"
+        />
         <br />
 
-        <button type="submit">Registrarse</button>
+        <button type="submit">Registrar Inmueble</button>
       </form>
     </div>
   </div>
@@ -28,37 +46,33 @@ export default {
   name: "SignUp",
   data: function () {
     return {
-      user: {
-        username: "",
-        password: "",
-        name: "",
-        email: "",
+      inmueble: {
+        propietario: localStorage.getItem("username") || "none",
+        area: "",
+        precio: "",
+        categoria: "",
+        descripcion: "",
+        disponible: true,
       },
     };
   },
   methods: {
-    processSignUp: async function () {
+    processNewInmueble: async function () {
       await this.$apollo
         .mutate({
           mutation: gql`
-            mutation SignUpUser($userInput: SignUpInput) {
-              signUpUser(userInput: $userInput) {
-                refresh
-                access
+            mutation CreateInmueble($inmueble: InmuebleInput!) {
+              createInmueble(inmueble: $inmueble) {
+                id
               }
             }
           `,
           variables: {
-            userInput: this.user,
+            inmueble: this.inmueble,
           },
         })
         .then((result) => {
-          let dataLogIn = {
-            username: this.user.username,
-            token_access: result.data.signUpUser.access,
-            token_refresh: result.data.signUpUser.refresh,
-          };
-          this.$emit("completedSignUp", dataLogIn);
+          this.$router.push({name:"inmuebles"});
         })
         .catch((error) => {
           alert("ERROR: Fallo en el registro.");
@@ -67,12 +81,6 @@ export default {
   },
 };
 </script>
-
-
-
-
-
-
 <style>
 .signUp_user {
   margin: 0;
@@ -115,6 +123,16 @@ export default {
 
   border: 1px solid #283747;
 }
+.signUp_user select {
+  height: 40px;
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: 10px 20px;
+  margin: 5px 0;
+
+  border: 1px solid #283747;
+}
 
 .signUp_user button {
   width: 100%;
@@ -135,3 +153,4 @@ export default {
   border: 1px solid #283747;
 }
 </style>
+

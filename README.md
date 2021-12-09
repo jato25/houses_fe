@@ -1,4 +1,4 @@
-# bank_fe
+# houses_fe
 
 ## Project setup
 ```
