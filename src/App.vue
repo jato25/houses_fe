@@ -36,22 +36,16 @@
 export default {
   name: "App",
 
-  data: function () {
-    return {
-      is_auth: false,
-    };
+  computed: {
+    is_auth: {
+      get: function () {
+        return this.$route.meta.requiresAuth;
+      },
+      set: function () {},
+    },
   },
 
-  components: {},
-
   methods: {
-    verifyAuth: function () {
-      this.is_auth = localStorage.getItem("isAuth") || false;
-
-      if (this.is_auth == false) this.$router.push({ name: "logIn" });
-      else this.$router.push({ name: "home" });
-    },
-
     loadLogIn: function () {
       this.$router.push({ name: "logIn" });
     },
@@ -65,7 +59,7 @@ export default {
       localStorage.setItem("username", data.username);
       localStorage.setItem("token_access", data.token_access);
       localStorage.setItem("token_refresh", data.token_refresh);
-      this.verifyAuth();
+      this.loadHome();
     },
 
     completedSignUp: function (data) {
@@ -83,22 +77,23 @@ export default {
     },
     logOut: function () {
       localStorage.clear();
-      this.verifyAuth();
+      this.loadLogIn();
     },
-  },
-
-  created: function () {
-    this.verifyAuth();
-  },
+  }
 };
 </script>
 
 
 
-
-
-
 <style>
+:root {
+  --color1: #00fdff;
+  --color2: #e45966;
+  --color3: #001ea2;
+  --color4: #73287a;
+  --color5: #ff94cb;
+}
+
 body {
   margin: 0 0 0 0;
 }
@@ -110,7 +105,7 @@ body {
   height: 10vh;
   min-height: 100px;
 
-  background-color: #283747;
+  background-color: var(--color4);
   color: #e5e7e9;
 
   display: flex;
@@ -136,7 +131,7 @@ body {
 
 .header nav button {
   color: #e5e7e9;
-  background: #283747;
+  background: var(--color4);
   border: 1px solid #e5e7e9;
 
   border-radius: 5px;
@@ -145,7 +140,7 @@ body {
 }
 
 .header nav button:hover {
-  color: #283747;
+  color: var(--color4);
   background: #e5e7e9;
   border: 1px solid #e5e7e9;
 }
@@ -165,7 +160,7 @@ body {
   height: 10vh;
   min-height: 100px;
 
-  background-color: #283747;
+  background-color: var(--color4);
   color: #e5e7e9;
 }
 
@@ -176,5 +171,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+* {
+  font-family: Helvetica, sans-serif;
 }
 </style>

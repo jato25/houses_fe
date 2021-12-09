@@ -151,12 +151,12 @@ export default {
   padding-bottom: 12px;
 
   text-align: left;
-  background-color: crimson;
+  background-color: var(--color2);
 
   color: white;
 }
 #InmueblesDisp > h2 {
-  color: #283747;
+  color: var(--color4);
   font-size: 25px;
 }
 
@@ -165,7 +165,7 @@ export default {
   height: 20px;
 
   color: #e5e7e9;
-  background: #283747;
+  background: var(--color4);
   border: 1px solid #e5e7e9;
 
   border-radius: 5px;
@@ -175,7 +175,7 @@ export default {
 
 #InmueblesDisp button:hover {
   color: #e5e7e9;
-  background: crimson;
-  border: 1px solid #283747;
+  background: var(--color2);
+  border: 1px solid var(--color4);
 }
 </style>

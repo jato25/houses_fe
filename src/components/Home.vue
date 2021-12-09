@@ -71,24 +71,24 @@ export default {
 }
 .information h1 {
   font-size: 60px;
-  color: #283747;
+  color: var(--color4);
 }
 .information h2 {
   font-size: 40px;
-  color: #283747;
+  color: var(--color4);
 }
 .information span {
-  color: crimson;
+  color: var(--color2);
   font-weight: bold;
 }
 .details h3 {
   font-size: 35px;
-  color: #283747;
+  color: var(--color4);
   text-align: center;
 }
 .details h2 {
   font-size: 35px;
-  color: #283747;
+  color: var(--color4);
 }
 .details {
   border: 3px solid rgba(0, 0, 0, 0.3);
