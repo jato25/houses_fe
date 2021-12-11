@@ -6,7 +6,7 @@ import { createApolloProvider } from '@vue/apollo-option'
 
 import { setContext } from 'apollo-link-context'
 const httpLink = createHttpLink({
-    uri: 'http://inmob-apigateway-c4.herokuapp.com/',
+    uri: 'https://inmob-apigateway-c4.herokuapp.com/',
 })
 const authLink = setContext((_, { headers }) => {
     return {

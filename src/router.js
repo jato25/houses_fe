@@ -56,7 +56,7 @@ const router = createRouter({
 });
 
 const apolloClient = new ApolloClient({
-    link: createHttpLink({ uri: 'http://inmob-apigateway-c4.herokuapp.com/' }),
+    link: createHttpLink({ uri: 'https://inmob-apigateway-c4.herokuapp.com/' }),
     cache: new InMemoryCache()
 })
 async function isAuth() {
